@@ -1,0 +1,30 @@
+{
+	"name": "akhaled/livewire-files-upload",
+	"description": "Upload files using livewire",
+	"type": "library",
+	"require": {
+		"livewire/livewire": "^2.0",
+		"akhaled/livewire-sweetalert": "^0.0.1-beta"
+	},
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Amro Khaled",
+			"email": "i@akhaled.com",
+			"homepage": "http://akhaled.com",
+			"role": "Developer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Akhaled\\LivewireFilesUpload\\": "src"
+		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Akhaled\\LivewireFilesUpload\\ServiceProvider"
+			]
+		}
+	}
+}
