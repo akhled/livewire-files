@@ -1,6 +1,6 @@
 {
-	"name": "akhaled/livewire-files-upload",
-	"description": "Upload files using livewire",
+	"name": "akhaled/livewire-files",
+	"description": "Upload and browse files using livewire",
 	"type": "library",
 	"require": {
 		"livewire/livewire": "^2.0",
@@ -17,13 +17,13 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Akhaled\\LivewireFilesUpload\\": "src"
+			"Akhaled\\LivewireFiles\\": "src"
 		}
 	},
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Akhaled\\LivewireFilesUpload\\ServiceProvider"
+				"Akhaled\\LivewireFiles\\ServiceProvider"
 			]
 		}
 	}

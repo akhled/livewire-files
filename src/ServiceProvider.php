@@ -1,7 +1,8 @@
 <?php
 
-namespace Akhaled\LivewireFilesUploader;
+namespace Akhaled\LivewireFiles;
 
+use Akhaled\LivewireFiles\Components\FilesUploadComponent;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Livewire\Livewire;
 
@@ -14,7 +15,8 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        //
+        // load views
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'livewire-files');
     }
 
     /**
