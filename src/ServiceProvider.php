@@ -28,5 +28,8 @@ class ServiceProvider extends LaravelServiceProvider
     {
         // register livewire components
         Livewire::component('files-upload', FilesUploadComponent::class);
+
+        // merge configurations
+        $this->mergeConfigFrom(__DIR__ . '/config/livewire-files.php', 'livewire-files');
     }
 }

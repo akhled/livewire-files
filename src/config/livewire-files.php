@@ -21,12 +21,19 @@ return [
      */
     'validation' => [
         /**
-         * Accept type for files
+         * Accept images only
          */
-        'type' => null,
+        'image' => false,
+
+        /**
+         * Accepted mimes type
+         * ex: csv,txt,xlx,xls,pdf
+         */
+        'mimes' => null,
+
         /**
          * Max uploaded size
          */
-        'max' => 1024
+        'max' => 1024,
     ]
 ];
