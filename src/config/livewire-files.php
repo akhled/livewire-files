@@ -2,7 +2,7 @@
 
 return [
     /**
-             * Default store directory using laravel symbolic links
+     * Default store directory using laravel symbolic links
      * @see https://laravel.com/docs/8.x/filesystem#the-public-disk
      *
      * I assume you have: public_path('storage') => storage_path('app/public') under links property
@@ -11,29 +11,18 @@ return [
     'store_dir' => 'public',
 
     /**
-     * Apply real time validation
+     * Accept images only
      */
-    'realtime_validation' => true,
+    'image' => false,
 
     /**
-     * Apply validation rules
-     * Tt will be transformed to image|max:1024
+     * Accepted mimes type
+     * ex: csv,txt,xlx,xls,pdf
      */
-    'validation' => [
-        /**
-         * Accept images only
-         */
-        'image' => false,
+    'mimes' => null,
 
-        /**
-         * Accepted mimes type
-         * ex: csv,txt,xlx,xls,pdf
-         */
-        'mimes' => null,
-
-        /**
-         * Max uploaded size
-         */
-        'max' => 1024,
-    ]
+    /**
+     * Max uploaded size
+     */
+    'max' => 102400
 ];

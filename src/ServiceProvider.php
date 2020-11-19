@@ -17,6 +17,9 @@ class ServiceProvider extends LaravelServiceProvider
     {
         // load views
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'livewire-files');
+
+        // publish config
+        $this->publishes([__DIR__ . '/config/livewire-files.php' => config_path('livewire-files.php')], 'livewire-files');
     }
 
     /**

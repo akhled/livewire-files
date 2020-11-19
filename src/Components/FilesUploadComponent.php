@@ -8,13 +8,16 @@ use Livewire\WithFileUploads;
 
 class FilesUploadComponent extends Component
 {
-    use WithFileUploads;
-    use Toast;
+    use WithFileUploads, Toast;
 
+    /** model */
     public $file;
-    public $files = [];
+    /** validation */
     public $image;
     public $mimes;
+    public $max;
+    /** placeholder */
+    public $files = [];
     public $file_path;
     public $file_name;
     public $file_extension;
@@ -23,10 +26,6 @@ class FilesUploadComponent extends Component
     protected $rules = [
         'file' => 'required',
     ];
-
-    public function open()
-    {
-    }
 
     public function updatedFile()
     {
@@ -41,10 +40,11 @@ class FilesUploadComponent extends Component
     private function prepareValidation()
     {
         $tmp = ['required'];
-        $validate = config('livewire-files.validation');
+        $validate = config('livewire-files');
 
         $tmp = $this->requestImageValidation($tmp, $validate);
         $tmp = $this->requestMimesValidation($tmp, $validate);
+        $tmp = $this->requestMaxValidation($tmp, $validate);
         if ($validate['max']) array_push($tmp, "max:" . $validate['max']);
 
         return ['file' => implode('|', $tmp)];
@@ -60,13 +60,11 @@ class FilesUploadComponent extends Component
      */
     private function requestImageValidation(array $tmp, array $validate)
     {
-        if (isset($this->image)) {
-            if ($this->image == true) {
-                array_push($tmp, 'image');
-            }
-        } else if ($validate['image'] && $validate['image'] == true) {
-            array_push($tmp, 'image');
-        }
+        $value = ((isset($this->image) && $this->image == true) || ($validate['image'] && $validate['image'] == true))
+            ? 'image'
+            : 'file';
+
+        array_push($tmp, $value);
 
         return $tmp;
     }
@@ -82,16 +80,32 @@ class FilesUploadComponent extends Component
     private function requestMimesValidation(array $tmp, array $validate)
     {
         if (isset($this->mimes)) {
-            if ($this->mimes == true) {
-                array_push($tmp, "mimes:" . $this->mimes);
-            }
-        } else if ($validate['mimes'] && $validate['mimes'] == true) {
+            array_push($tmp, "mimes:" . $this->mimes);
+        } else if ($validate['mimes']) {
             array_push($tmp, "mimes:" . $validate['mimes']);
         }
 
         return $tmp;
     }
 
+    /**
+     * Check max uploaded validation
+     * Returns ['max:xxxx']
+     *
+     * @param array $tmp
+     * @param array $validate
+     * @return array
+     */
+    private function requestMaxValidation(array $tmp, array $validate)
+    {
+        if (isset($this->max)) {
+            array_push($tmp, "max:" . $this->max);
+        } else if ($validate['max']) {
+            array_push($tmp, "max:" . $validate['max']);
+        }
+
+        return $tmp;
+    }
 
     public function setFileName()
     {

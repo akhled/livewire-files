@@ -1,59 +1,32 @@
-<div class="shadow px-20 pt-10 pb-15 bg-white rounded-3xl" x-data="{ isUploading: false, progress: 0 }"
-    x-init="progress = 0" x-on:livewire-upload-start="isUploading = true"
-    x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-    x-on:livewire-upload-progress="progress = $event.detail.progress">
+<div x-data="{ isUploading: false, progress: 0, showModal: false }" x-init="progress = 0"
+    x-on:livewire-upload-start="isUploading = true; progress = 0" x-on:livewire-upload-finish="isUploading = false"
+    x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-    <h1>Upload the files</h1>
-    <hr class="mt-2 mb-10 border-gray-100 border-opacity-50">
+    <button type="button" x-on:click="showModal = true"
+        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+        Upload
+    </button>
 
-    <div class="grid grid-cols-2">
-        <div>
-            <div
-                class="flex justify-center px-6 pt-5 pb-6 border-2 border-cool-gray-200 border-dashed rounded-md bg-cool-gray-50">
-                <div class="text-center">
-                    <x-eva-cloud-upload-outline class="w-15 my-10 m-auto text-cool-gray-900" />
-                    <p class="mt-1 text-sm text-gray-600">
-                        Drag and drop
-                    </p>
-                    <p class="mt-1 text-xs text-gray-500">
-                        <span class="uppercase">{{ config('livewire-files.validation.mimes') ?? 'any file' }}</span> up
-                        to <span class="uppercase">{{ config('livewire-files.validation.max') }}</span>kb
-                    </p>
+    <div class="fixed z-10 inset-0 overflow-y-auto" x-show="showModal">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full"
+                role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div class="bg-white px-4 pt-5 pb-4 sm:px-20 sm:pt-10 sm:pb-15">
+                    @include('livewire-files::livewire.files-upload-modal')
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" x-on:click="showModal = false"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Exit
+                    </button>
                 </div>
             </div>
-
-            <p class="text-center my-5 text-gray-500">or</p>
-
-            <div class="text-center">
-                <input type="file" class="m-auto appearance-none" wire:model="file"
-                    class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
-                    value="Upload a file" />
-            </div>
-
-            {{-- Error message --}}
-            @error('file')
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="error">{{ $message }}</span>
-                </div>
-            @enderror
-        </div>
-
-        <div class="ml-10 mr-0">
-            <div x-show="isUploading">
-                @include('livewire-files::livewire.file-progress', [
-                    'file_name' => $file_name,
-                    'file_extension' => $file_extension,
-                    'completed' => false
-                ])
-            </div>
-
-            @foreach ($files as $f)
-                @include('livewire-files::livewire.file-progress', [
-                    'file_name' => $f['file_name'],
-                    'file_extension' => $f['file_extension'],
-                    'completed' => true
-                ])
-            @endforeach
         </div>
     </div>
 </div>
