@@ -12,8 +12,13 @@ class FilesUploadComponent extends Component
     use Toast;
 
     public $file;
+    public $files = [];
     public $image;
     public $mimes;
+    public $file_path;
+    public $file_name;
+    public $file_extension;
+    public $file_mime;
 
     protected $rules = [
         'file' => 'required',
@@ -25,7 +30,7 @@ class FilesUploadComponent extends Component
 
     public function updatedFile()
     {
-        $this->validateOnly('file', $this->prepareValidation());
+        $this->save();
     }
 
     /**
@@ -87,11 +92,29 @@ class FilesUploadComponent extends Component
         return $tmp;
     }
 
+
+    public function setFileName()
+    {
+        $this->file_name = pathinfo(__DIR__ . $this->file_path)['basename'];
+    }
+
+    public function setFileExtension()
+    {
+        $this->file_mime = mime_content_type(storage_path('app/' . $this->file_path));
+        $this->file_extension = pathinfo(__DIR__ . $this->file_path)['extension'];
+    }
+
     public function save()
     {
-        $this->updatedFile();
-        $this->file->store(config('livewire-files.store_dir'));
-        $this->reset('file');
+        $this->validateOnly('file', $this->prepareValidation());
+        $this->file_path = $this->file->store(config('livewire-files.store_dir'));
+        $this->setFileName();
+        $this->setFileExtension();
+        array_unshift($this->files, [
+            'file_name' => $this->file_name,
+            'file_extension' => $this->file_extension,
+        ]);
+        $this->reset(['file', 'file_name', 'file_extension', 'file_path']);
         $this->toast('File has been uploaded', 'success');
     }
 

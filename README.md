@@ -4,6 +4,7 @@ Uploading file using [Livewire](https://laravel-livewire.com/) and [Tailwind](ht
 
 - [Installation](#installation)
 - [How to use](#how-to-use)
+- [Plan](#plan)
 
 ## Installation
 
@@ -26,3 +27,11 @@ Uploading file using [Livewire](https://laravel-livewire.com/) and [Tailwind](ht
 ```blade
 @livewireSweetalertScripts
 ```
+
+## Plan
+
+- [ ] Show toast on uploaded!
+- [ ] Hide input file and show javascript link
+- [ ] Specify upload files names
+- [ ] Move uploads to directory year/month/day
+- [ ] Show sweetalert popups instead of static alert

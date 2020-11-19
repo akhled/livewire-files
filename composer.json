@@ -3,8 +3,10 @@
 	"description": "Upload and browse files using livewire",
 	"type": "library",
 	"require": {
+		"akhaled/livewire-sweetalert": "^0.0.1-beta",
+		"blade-ui-kit/blade-icons": "^0.4.3",
 		"livewire/livewire": "^2.0",
-		"akhaled/livewire-sweetalert": "^0.0.1-beta"
+        "hasnayeen/blade-eva-icons": "^0.3.0"
 	},
 	"license": "MIT",
 	"authors": [
