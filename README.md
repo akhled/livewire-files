@@ -3,12 +3,15 @@
 Uploading file using [Livewire](https://laravel-livewire.com/) and [Tailwind](https://tailwindui.com/).
 
 - [Installation](#installation)
+- [How to use](#how-to-use)
 
 ## Installation
 
-1. `composer require akhaled/livewire-files`
+`composer require akhaled/livewire-files`
 
-2. Add livewire component to your view
+## How to use
+
+### 1. Add livewire component to your view <!-- omit in toc -->
 
 ```blade
 @livewire('files-upload', [
@@ -18,7 +21,7 @@ Uploading file using [Livewire](https://laravel-livewire.com/) and [Tailwind](ht
 ])
 ```
 
-3. Add [sweetalert](https://github.com/akhled/livewire-sweetalert) script for toast notification
+### 2. Add [sweetalert](https://github.com/akhled/livewire-sweetalert) script for toast notification <!-- omit in toc -->
 
 ```blade
 @livewireSweetalertScripts
